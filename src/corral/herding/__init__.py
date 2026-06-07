@@ -3,9 +3,12 @@
 from corral.herding.concentration import hhi, normalized_entropy, shannon_entropy
 from corral.herding.detector import HerdingDetector
 from corral.herding.nulls import null_distribution, surrogate_shuffle
+from corral.herding.rmt import MarketModeDetector, market_mode
 
 __all__ = [
     "HerdingDetector",
+    "MarketModeDetector",
+    "market_mode",
     "hhi",
     "shannon_entropy",
     "normalized_entropy",

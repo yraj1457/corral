@@ -1,6 +1,11 @@
 """Honest statistics, the cascade simulator, and the detector benchmark."""
 
-from corral.validation.benchmark import alarm_time, calibrate_threshold, evaluate
+from corral.validation.benchmark import (
+    alarm_time,
+    calibrate_threshold,
+    compare_detectors,
+    evaluate,
+)
 from corral.validation.simulator import make_dataset, simulate_run
 from corral.validation.stats import (
     benjamini_hochberg,
@@ -23,4 +28,5 @@ __all__ = [
     "calibrate_threshold",
     "evaluate",
     "alarm_time",
+    "compare_detectors",
 ]

@@ -1,14 +1,17 @@
-"""Measuring the herding detector against simulated cascades.
+"""Measuring the herding detectors against simulated cascades.
 
-A safety tool that cannot prove it works is a liability, so this is where the detector earns its
-keep. We slide it across each run, set the alarm threshold on normal runs to fix the false-alarm
-rate, then on cascade runs ask the two questions that matter, does it fire before the break, and
-how much warning does it give.
+A safety tool that cannot prove it works is a liability, so this is where the detectors earn their
+keep. We slide one across each run, set its alarm threshold on normal runs to fix the false-alarm
+rate, then on cascade runs ask the two questions that matter, does it fire before the break and how
+much warning does it give. compare_detectors puts two of them head to head on the same runs and
+leans on the bootstrap in validation/stats.py, which resamples runs so the gap keeps its covariance.
 """
 
 from __future__ import annotations
 
 import numpy as np
+
+from corral.validation.stats import bootstrap_gap
 
 
 def _windows(n_timesteps, window):
@@ -73,4 +76,27 @@ def evaluate(detector, runs, window):
         "detected_flags": detected_flags,
         "leads": leads,
         "normal_alarms": normal_alarms,
+    }
+
+
+def compare_detectors(detector_a, detector_b, runs, window, random_state=0):
+    """Score two detectors on the same cascade runs and bootstrap the gap in detection rate. Both
+    are recomputed on the same resampled runs each draw, so the covariance between them is kept and
+    the gap comes out tighter than two separate error bars would suggest. Returns each detection
+    rate and the gap with a 95% interval, where gap is a minus b.
+    """
+    a, b = [], []
+    for X, event in runs:
+        if event is None:
+            continue
+        ta = alarm_time(detector_a, X, window)
+        tb = alarm_time(detector_b, X, window)
+        a.append(1.0 if (ta is not None and ta <= event) else 0.0)
+        b.append(1.0 if (tb is not None and tb <= event) else 0.0)
+    gap, se, lo, hi = bootstrap_gap(a, b, random_state=random_state)
+    return {
+        "a_detection": float(np.mean(a)),
+        "b_detection": float(np.mean(b)),
+        "gap": gap,
+        "ci95": (lo, hi),
     }
