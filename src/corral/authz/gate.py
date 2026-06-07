@@ -1,7 +1,7 @@
 """Pillar 2, the pre-trade gate.
 
 Every order an agent wants to send goes through authorize() first. It returns ALLOW or DENY
-with the reasons, deny-by-default: if a check cannot be evaluated, the order does not go. `mode`
+with the reasons, deny-by-default, if a check cannot be evaluated the order does not go. `mode`
 picks hard enforcement (block) or soft monitoring (record the violation, let it through), the
 same gate serves a firm that wants to block and a supervisor that only wants to watch.
 
@@ -92,7 +92,7 @@ class PreTradePolicyGate:
 
         effect = Effect.DENY if reasons else Effect.ALLOW
         if reasons and self.mode is Mode.MONITOR:
-            effect = Effect.ALLOW  # monitor: keep the reasons, but let the order through
+            effect = Effect.ALLOW  # monitor mode keeps the reasons but lets the order through
         return Decision(effect, tuple(reasons))
 
     def commit(self, order: Any) -> None:

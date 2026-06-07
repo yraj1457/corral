@@ -1,6 +1,6 @@
 """The black-box agent action, the only thing corral ever sees.
 
-corral does not look inside an agent: no weights, no prompts, no chain-of-thought. It works
+corral does not look inside an agent, not its weights, prompts, or chain-of-thought. It works
 entirely off a stream of actions, because that is the one thing that generalizes across
 architectures and the one thing a supervisor actually gets to observe. Audit, authorization,
 and herding detection are all defined over these records.

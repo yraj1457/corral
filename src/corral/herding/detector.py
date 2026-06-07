@@ -1,6 +1,6 @@
 """Pillar 3, the herding detector.
 
-Black-box and action-only: X is (n_agents, n_timesteps, action_dim). fit() learns the chance
+Black-box and action-only. X is (n_agents, n_timesteps, action_dim). fit() learns the chance
 baseline, how aligned the fleet looks under the shuffle null, and decision_function() returns
 the observed alignment's excess over that baseline, in units of the null's own spread, so a high
 score means the fleet is more aligned than chance would explain. predict() thresholds that into

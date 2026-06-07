@@ -1,7 +1,7 @@
 """The honest-statistics spine for validating detectors.
 
 This is the same machinery a leaderboard needs and the same shape the cascade-detection evaluation
-needs: a standard error that does not pretend clustered items are independent, a bootstrap null for
+needs, a standard error that does not pretend clustered items are independent, a bootstrap null for
 the gap between two methods that resamples *items* so the shared item-difficulty cancels in the
 difference, Benjamini-Hochberg over the many comparisons, and effective-N as a descriptive read on
 how much independent information is really there. See PLAN.md, section 9.
@@ -13,7 +13,7 @@ import numpy as np
 
 
 def binomial_se(p: float, n: int) -> float:
-    """Standard error of a mean of 0/1 outcomes under independence: sqrt(p(1-p)/n)."""
+    """Standard error of a mean of 0/1 outcomes under independence, sqrt(p(1-p)/n)."""
     if n <= 0:
         raise ValueError("n must be positive")
     return float(np.sqrt(p * (1 - p) / n))
@@ -21,7 +21,7 @@ def binomial_se(p: float, n: int) -> float:
 
 def cluster_se(values, clusters) -> float:
     """Standard error of a mean when items cluster (same repo, same regime, same seed family).
-    Widens the naive SE so correlated items are not counted as independent information: it sums the
+    Widens the naive SE so correlated items are not counted as independent information, it sums the
     squared within-cluster residual totals, which keeps the covariance between items in the same
     cluster instead of throwing it away."""
     values = np.asarray(values, dtype=float)
@@ -62,6 +62,18 @@ def bootstrap_gap(scores_a, scores_b, n_resamples: int = 2000, random_state: int
         gaps[k] = a[idx].mean() - b[idx].mean()
     gap = float(a.mean() - b.mean())
     return gap, float(gaps.std()), float(np.percentile(gaps, 2.5)), float(np.percentile(gaps, 97.5))
+
+
+def bootstrap_ci(values, n_resamples=2000, random_state=None):
+    """95% bootstrap confidence interval for a mean, resampling items with replacement. Returns
+    (mean, ci_low, ci_high)."""
+    v = np.asarray(values, dtype=float)
+    if v.size == 0:
+        return float("nan"), float("nan"), float("nan")
+    rng = np.random.default_rng(random_state)
+    n = v.size
+    means = np.array([v[rng.integers(0, n, n)].mean() for _ in range(n_resamples)])
+    return float(v.mean()), float(np.percentile(means, 2.5)), float(np.percentile(means, 97.5))
 
 
 def benjamini_hochberg(pvalues, alpha: float = 0.05) -> np.ndarray:

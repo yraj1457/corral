@@ -1,4 +1,4 @@
-"""Quickstart: log agent actions tamper-evidently, gate them against policy, then score the fleet
+"""Quickstart. Log agent actions tamper-evidently, gate them against policy, then score the fleet
 for herding. Run it with `python examples/quickstart.py` from the repo root."""
 
 import numpy as np
@@ -10,11 +10,11 @@ from corral.herding.detector import HerdingDetector
 
 
 def main() -> None:
-    # authorization: a deny-by-default gate in front of every order
+    # the deny-by-default gate goes in front of every order
     gate = PreTradePolicyGate(
         TradingPolicy(allowed_instruments=frozenset({"AAPL", "MSFT"}), max_order_quantity=1000)
     )
-    # audit: a hash-chained log of what actually went through
+    # the hash-chained log records what actually went through
     audit = TamperEvidentAuditLog()
 
     log = ActionLog()
@@ -32,7 +32,7 @@ def main() -> None:
 
     print(f"actions logged: {len(audit)}   chain valid: {audit.verify()}")
 
-    # herding: score the fleet against a chance baseline (this fleet is independent, so it's low)
+    # score the fleet against a chance baseline (this one is independent, so it stays low)
     X, agents, times = log.to_array(features=("signed_quantity",))
     det = HerdingDetector(random_state=0).fit(X)
     print(f"herding score (excess over chance): {float(det.decision_function(X)[0]):.2f}")

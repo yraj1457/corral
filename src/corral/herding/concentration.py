@@ -1,7 +1,7 @@
 """Concentration of the action space, the simplest herding signal.
 
 When a fleet herds, its actions pile onto a few choices. HHI and entropy both read that pile-up
-from the distribution of actions across choices: HHI = sum_k s_k^2 rises toward 1 as one action
+from the distribution of actions across choices. HHI = sum_k s_k^2 rises toward 1 as one action
 dominates, Shannon entropy H = -sum_k s_k log s_k falls toward 0. They are cheap and model-free,
 and they are the first thing the detector looks at.
 """

@@ -1,6 +1,6 @@
 """Pillar 1, the tamper-evident action log.
 
-Append-only and hash-chained: each entry stores the hash of the one before it, folded in
+Append-only and hash-chained. Each entry stores the hash of the one before it, folded in
 with the entry's own contents, so any edit to history changes that entry's hash and every
 hash after it, and the tampering shows when you recompute the chain. This module ships the
 chain and its verification (both real). The Merkle inclusion and consistency proofs and the
