@@ -1,0 +1,8 @@
+{
+  "allowed_instruments": ["AAPL", "MSFT"],
+  "restricted_instruments": ["GME"],
+  "max_order_quantity": 1000,
+  "max_order_notional": 250000,
+  "max_position": 5000,
+  "allow_short": false
+}
