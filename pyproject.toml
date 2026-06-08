@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "corral"
-description = "A safety layer for autonomous AI agents in finance: tamper-evident audit, policy-as-code authorization, and herding detection."
+description = "A safety layer for autonomous AI agents in finance, with tamper-evident audit, policy-as-code authorization, and herding detection."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "BSD-3-Clause" }

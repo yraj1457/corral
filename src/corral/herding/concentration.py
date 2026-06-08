@@ -20,7 +20,7 @@ def _shares(counts) -> np.ndarray:
 
 
 def hhi(counts) -> float:
-    """Herfindahl-Hirschman index of an action distribution: 1/k for a uniform spread across k
+    """Herfindahl-Hirschman index of an action distribution, 1/k for a uniform spread across k
     actions, up to 1 when everything is one action."""
     s = _shares(counts)
     return float(np.sum(s**2))

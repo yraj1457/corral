@@ -13,8 +13,9 @@ import numpy as np
 
 
 def absorption_ratio(returns, n_components: int | None = None) -> float:
-    """returns: (n_periods, n_assets). Fraction of total variance in the top n_components principal
-    components. n_components defaults to ~1/5 of the assets, as in Kritzman-Li."""
+    """returns is an (n_periods, n_assets) matrix. Fraction of total variance in the top
+    n_components principal components. n_components defaults to ~1/5 of the assets, as in
+    Kritzman-Li."""
     R = np.asarray(returns, dtype=float)
     if R.ndim != 2:
         raise ValueError("returns must be 2D (n_periods, n_assets)")

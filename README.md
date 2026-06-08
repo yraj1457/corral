@@ -10,7 +10,7 @@ Three pieces, and every one treats the agent as a black box. It reads what an ag
 
 ## Status
 
-Early, `0.0.1`. Real and tested today, the action contract, the hash-chained audit log, the policy gate, a first herding detector, the absorption-ratio early-warning signal, and the validation statistics. Stubbed and on the roadmap, Merkle proofs and RFC 3161 time-anchoring, OPA/Cedar policy adapters, the fuller herding menu (RMT, CSAD, transfer entropy, Kuramoto, copula tail dependence, policy similarity), and the market-simulator validation harness.
+Early, `0.0.1`. Real and tested today, the action contract, the hash-chained audit log with Merkle inclusion and consistency proofs, the deny-by-default policy gate and kill switch, two herding detectors (net-direction and RMT market-mode) and the budget-calibrated watchdog that combines them, the absorption-ratio early-warning signal, the synthetic cascade simulator, and the validation statistics. Stubbed and on the roadmap, RFC 3161 time-anchoring, OPA/Cedar policy adapters, the wider herding menu (CSAD, transfer entropy, Kuramoto, copula tail dependence, policy similarity), and the realistic order-book validation harness (ABIDES).
 
 ## Install
 
@@ -18,7 +18,7 @@ Early, `0.0.1`. Real and tested today, the action contract, the hash-chained aud
 pip install -e ".[dev]"
 ```
 
-Python 3.10+. The core needs numpy and scipy; scikit-learn is optional and used when it's present.
+Python 3.9+. The core needs numpy and scipy; scikit-learn is optional and used when it's present.
 
 ## A quick look
 

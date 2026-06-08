@@ -6,9 +6,10 @@ the observed alignment's excess over that baseline, in units of the null's own s
 score means the fleet is more aligned than chance would explain. predict() thresholds that into
 +1 (herding) / -1 (normal), following scikit-learn's outlier convention.
 
-This first cut scores directional alignment against a surrogate-shuffle null. The fuller menu
-(RMT-denoised market mode, CSAD, transfer entropy, Kuramoto, copula tail dependence, policy
-similarity) plugs in through the same fit / decision_function contract, see PLAN.md, Pillar 3.
+This detector scores directional alignment against a surrogate-shuffle null. The market-mode
+detector in rmt.py adds a correlation-structure view through the same contract, and the wider menu
+(CSAD, transfer entropy, Kuramoto, copula tail dependence, policy similarity) plugs in the same way,
+see PLAN.md, Pillar 3.
 """
 
 from __future__ import annotations
