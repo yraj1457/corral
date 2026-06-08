@@ -86,3 +86,55 @@ def _rebuild(index: int, n: int, leaf: bytes, path: list[bytes]) -> bytes:
     if index < k:
         return _node_hash(_rebuild(index, k, leaf, rest), sibling)
     return _node_hash(sibling, _rebuild(index - k, n - k, leaf, rest))
+
+
+def consistency_proof(leaves: list[bytes], m: int) -> list[bytes]:
+    """RFC 6962 consistency proof that the first m leaves are a prefix of all the leaves. With it, a
+    holder of the size-m root and the size-n root can check the log only ever appended, never
+    rewrote what was already there."""
+    n = len(leaves)
+    if not 0 < m <= n:
+        raise ValueError("require 0 < m <= number of leaves")
+    return _consistency(m, [leaf_hash(d) for d in leaves], True)
+
+
+def _consistency(m: int, hashes: list[bytes], b: bool) -> list[bytes]:
+    n = len(hashes)
+    if m == n:
+        return [] if b else [_root(hashes)]
+    k = _split(n)
+    if m <= k:
+        return _consistency(m, hashes[:k], b) + [_root(hashes[k:])]
+    return _consistency(m - k, hashes[k:], False) + [_root(hashes[:k])]
+
+
+def verify_consistency(m: int, n: int, old_root: bytes, new_root: bytes, proof) -> bool:
+    """True if the proof shows the size-m tree (old_root) is a prefix of the size-n tree (new_root),
+    that is, the log between the two checkpoints was append-only. Rebuilds both roots from the proof
+    and compares."""
+    if not 0 < m <= n:
+        return False
+    if m == n:
+        return old_root == new_root and len(list(proof)) == 0
+    work = list(proof)
+    try:
+        rebuilt_old, rebuilt_new = _verify_cons(m, n, work, True, old_root)
+    except (IndexError, ValueError):
+        return False
+    return not work and rebuilt_old == old_root and rebuilt_new == new_root
+
+
+def _verify_cons(m: int, n: int, proof: list[bytes], b: bool, old_root: bytes):
+    if m == n:
+        if b:
+            return old_root, old_root
+        shared = proof.pop()
+        return shared, shared
+    k = _split(n)
+    if m <= k:
+        right = proof.pop()
+        old, left_new = _verify_cons(m, k, proof, b, old_root)
+        return old, _node_hash(left_new, right)
+    left = proof.pop()
+    old, right_new = _verify_cons(m - k, n - k, proof, False, old_root)
+    return _node_hash(left, old), _node_hash(left, right_new)

@@ -16,8 +16,10 @@ import time
 from dataclasses import dataclass
 from typing import Any
 
+from corral.audit.merkle import consistency_proof as _merkle_consistency
 from corral.audit.merkle import inclusion_proof as _merkle_path
 from corral.audit.merkle import merkle_root as _merkle_root
+from corral.audit.merkle import verify_consistency as _merkle_verify_consistency
 from corral.audit.merkle import verify_inclusion as _merkle_verify
 
 GENESIS = "0" * 64
@@ -51,6 +53,13 @@ class SignedTreeHead:
 class InclusionProof:
     leaf_index: int
     tree_size: int
+    audit_path: tuple[str, ...]
+
+
+@dataclass(frozen=True)
+class ConsistencyProof:
+    old_size: int
+    new_size: int
     audit_path: tuple[str, ...]
 
 
@@ -111,9 +120,11 @@ class TamperEvidentAuditLog:
         It needs a trusted timestamping authority, so it is wired in at deployment, see PLAN.md."""
         raise NotImplementedError("RFC 3161 timestamp anchoring, Pillar 1 roadmap")
 
-    def consistency_proof(self, old: SignedTreeHead, new: SignedTreeHead) -> Any:
-        """Proof that `new` only appended to `old`, with nothing rewritten."""
-        raise NotImplementedError("Merkle consistency proof, Pillar 1 roadmap")
+    def consistency_proof(self, old: SignedTreeHead) -> "ConsistencyProof":
+        """Proof that the log as it stands only appended to the `old` checkpoint, nothing rewritten.
+        Verify it with verify_consistency against the old checkpoint and a current one."""
+        path = _merkle_consistency(self._leaves(), old.tree_size)
+        return ConsistencyProof(old.tree_size, len(self._entries), tuple(h.hex() for h in path))
 
 
 def verify_inclusion(record: Any, proof: InclusionProof, checkpoint: SignedTreeHead) -> bool:
@@ -128,4 +139,16 @@ def verify_inclusion(record: Any, proof: InclusionProof, checkpoint: SignedTreeH
     return _merkle_verify(
         _canonical(payload), proof.leaf_index, proof.tree_size, path,
         bytes.fromhex(checkpoint.root_hash),
+    )
+
+
+def verify_consistency(old: SignedTreeHead, new: SignedTreeHead, proof: ConsistencyProof) -> bool:
+    """Check, from two published checkpoints and a proof, that the newer log only appended to the
+    older one and rewrote nothing. Returns False if the checkpoint sizes do not match the proof."""
+    if proof.old_size != old.tree_size or proof.new_size != new.tree_size:
+        return False
+    path = [bytes.fromhex(h) for h in proof.audit_path]
+    return _merkle_verify_consistency(
+        old.tree_size, new.tree_size, bytes.fromhex(old.root_hash), bytes.fromhex(new.root_hash),
+        path,
     )
