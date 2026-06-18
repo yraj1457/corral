@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.1
+Documentation only. Corrected the README version and added the PyPI install command. No code changes.
+
 ## 0.1.0
 First public release. A black-box safety layer for fleets of autonomous trading agents.
 
