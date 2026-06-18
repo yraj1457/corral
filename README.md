@@ -1,5 +1,7 @@
 # corral
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.20750017.svg)](https://doi.org/10.5281/zenodo.20750017)
+
 A safety layer for autonomous AI agents in finance. You corral a herd to keep it from stampeding, and that's the job here. Watch a fleet of black-box trading agents and keep it inside safe bounds.
 
 Three pieces, and every one treats the agent as a black box. It reads what an agent *did* (orders, cancels, fills), never its weights or its prompts, because the action stream is the one thing that generalizes across architectures and the one thing a supervisor actually gets to see.
