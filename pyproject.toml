@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "corral"
+name = "corral-fleet"
 description = "A safety layer for autonomous AI agents in finance, with tamper-evident audit, policy-as-code authorization, and herding detection."
 readme = "README.md"
 requires-python = ">=3.9"
