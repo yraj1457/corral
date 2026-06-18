@@ -14,7 +14,7 @@ from corral.authz.gate import PreTradePolicyGate
 from corral.authz.policy import TradingPolicy
 from corral.herding.detector import HerdingDetector
 
-__version__ = "0.0.1"
+__version__ = "0.1.0"
 
 __all__ = [
     "AgentAction",

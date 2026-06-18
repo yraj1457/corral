@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+title: "corral: a black-box safety layer for fleets of autonomous trading agents"
+message: "If you use this software, please cite it."
+type: software
+authors:
+  - family-names: Behera
+    given-names: Yashraj
+    email: y.raj1457@gmail.com
+version: 0.1.0
+license: BSD-3-Clause
+repository-code: "https://github.com/yraj1457/corral"

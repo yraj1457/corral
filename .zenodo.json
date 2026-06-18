@@ -1,0 +1,8 @@
+{
+  "title": "corral: a black-box safety layer for fleets of autonomous trading agents",
+  "description": "Open-source, scikit-learn-compatible Python library for monitoring fleets of autonomous trading agents: tamper-evident audit, policy-as-code authorization, and herding detection.",
+  "license": "BSD-3-Clause",
+  "upload_type": "software",
+  "creators": [{"name": "Behera, Yashraj"}],
+  "keywords": ["financial-stability", "systemic-risk", "ai-agents", "herding", "audit-trail", "scikit-learn"]
+}
