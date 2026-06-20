@@ -14,7 +14,7 @@ authors:
 affiliations:
   - name: Independent Researcher
     index: 1
-date: 19 June 2026
+date: 20 June 2026
 bibliography: paper.bib
 ---
 
@@ -85,8 +85,8 @@ herding detection behind a single black-box action contract.
 pip install corral-fleet
 ```
 
-It is developed at <https://github.com/yraj1457/corral> and archived at version 0.1.0
-with DOI [10.5281/zenodo.20750017](https://doi.org/10.5281/zenodo.20750017).
+It is developed at <https://github.com/yraj1457/corral> and archived at version 0.1.1
+with DOI [10.5281/zenodo.20769986](https://doi.org/10.5281/zenodo.20769986).
 
 # Acknowledgements
 
