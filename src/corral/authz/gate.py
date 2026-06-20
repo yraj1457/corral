@@ -6,8 +6,8 @@ enforcement (block) or soft monitoring (record the violation, let it through), s
 serves a firm that wants to block and a supervisor that only watches. A kill switch sits above
 all of it, a halted gate denies every order in scope whatever the mode, the RTS 6 emergency stop.
 
-OPA/Rego and Cedar adapters for externally-authored policy come later (see PLAN.md, Pillar 2). This
-gate evaluates the built-in TradingPolicy directly.
+OPA/Rego and Cedar adapters for externally-authored policy come later. This gate evaluates the
+built-in TradingPolicy directly.
 """
 
 from __future__ import annotations

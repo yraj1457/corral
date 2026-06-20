@@ -4,7 +4,7 @@ This is the same machinery a leaderboard needs and the same shape the cascade-de
 needs, a standard error that does not pretend clustered items are independent, a bootstrap null for
 the gap between two methods that resamples *items* so the shared item-difficulty cancels in the
 difference, Benjamini-Hochberg over the many comparisons, and effective-N as a descriptive read on
-how much independent information is really there. See PLAN.md, section 9.
+how much independent information is really there.
 """
 
 from __future__ import annotations

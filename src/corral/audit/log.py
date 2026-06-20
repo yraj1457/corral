@@ -5,7 +5,7 @@ entry's own contents, so any edit to history changes that entry's hash and every
 the tampering shows when you recompute the chain. On top of the chain sits a Merkle tree, which lets
 you hand an auditor one action plus a short proof and a root, and they can check the action
 really is in the log without seeing the rest of it. The external RFC 3161 time-anchor that closes
-the tail-truncation gap is the remaining step, see PLAN.md, Pillar 1.
+the tail-truncation gap is the remaining step on the roadmap.
 """
 
 from __future__ import annotations

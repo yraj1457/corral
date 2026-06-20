@@ -8,8 +8,7 @@ score means the fleet is more aligned than chance would explain. predict() thres
 
 This detector scores directional alignment against a surrogate-shuffle null. The market-mode
 detector in rmt.py adds a correlation-structure view through the same contract, and the wider menu
-(CSAD, transfer entropy, Kuramoto, copula tail dependence, policy similarity) plugs in the same way,
-see PLAN.md, Pillar 3.
+(CSAD, transfer entropy, Kuramoto, copula tail dependence, policy similarity) plugs in the same way.
 """
 
 from __future__ import annotations

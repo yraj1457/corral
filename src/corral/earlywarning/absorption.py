@@ -3,8 +3,8 @@
 The fraction of a market's total variance captured by its top few principal components. When it
 rises, returns are being driven by fewer common factors, so the market is more tightly coupled and
 more fragile. It is cheap to compute from a returns matrix, which is why it works as a real-time
-coupling signal. The operational trigger is a standardized *shift* in the ratio, not its raw level
-(see PLAN.md, early-warning), this function returns the level; the shift is built on top of it.
+coupling signal. The operational trigger is a standardized *shift* in the ratio, not its raw level,
+and this function returns the level; the shift is built on top of it.
 """
 
 from __future__ import annotations
