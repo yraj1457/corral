@@ -3,7 +3,7 @@ for herding. Run it with `python examples/quickstart.py` from the repo root."""
 
 import numpy as np
 
-from corral import AgentAction, ActionLog, PreTradePolicyGate, TamperEvidentAuditLog
+from corral import ActionLog, AgentAction, PreTradePolicyGate, TamperEvidentAuditLog
 from corral.action import ActionType
 from corral.authz.policy import TradingPolicy
 from corral.herding.detector import HerdingDetector

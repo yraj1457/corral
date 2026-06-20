@@ -5,7 +5,7 @@ purpose and are not exercised here."""
 import numpy as np
 import pytest
 
-from corral import AgentAction, ActionLog, PreTradePolicyGate, TamperEvidentAuditLog
+from corral import AgentAction, PreTradePolicyGate, TamperEvidentAuditLog
 from corral.action import ActionType
 from corral.authz.gate import Mode
 from corral.authz.policy import TradingPolicy

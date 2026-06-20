@@ -28,7 +28,7 @@ class TradingPolicy:
     allow_short: bool = True
 
     @classmethod
-    def from_dict(cls, d: dict[str, Any]) -> "TradingPolicy":
+    def from_dict(cls, d: dict[str, Any]) -> TradingPolicy:
         """Build a policy from a dict, the kind you keep in a JSON file. Instrument lists become
         sets, and anything left out keeps its default of no limit on that axis."""
         allowed = d.get("allowed_instruments")
