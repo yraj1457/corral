@@ -6,6 +6,6 @@ authors:
   - family-names: Behera
     given-names: Yashraj
     email: y.raj1457@gmail.com
-version: 0.1.0
+version: 0.1.1
 license: BSD-3-Clause
 repository-code: "https://github.com/yraj1457/corral"

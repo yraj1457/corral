@@ -8,11 +8,11 @@ Three pieces, and every one treats the agent as a black box. It reads what an ag
 
 - **Audit**, an append-only, hash-chained record of every action with its decision context and the authorization behind it. Each entry binds the hash of the one before it, so editing history breaks every hash after it and the tampering shows. Any agent's behavior can be reconstructed and verified after the fact.
 - **Authorization**, a deny-by-default gate that checks each order against declarative policy before it runs, against allowed instruments, order-size and notional limits, position caps, and restricted lists. Block on violation, or just log it and watch.
-- **Herding detection**, a scikit-learn-style detector that scores how far a fleet is converging on the same move, measured against an explicit null so it reports real crowding and not noise, and flags it before it turns into a liquidity event.
+- **Herding detection**, a scikit-learn-style detector that scores how far a fleet is converging on the same move, measured against an explicit null so a flag means more alignment than independent agents would produce, not mere co-movement.
 
 ## Status
 
-Early, `0.1.0`. Real and tested today, the action contract, the hash-chained audit log with Merkle inclusion and consistency proofs, the deny-by-default policy gate and kill switch, two herding detectors (net-direction and RMT market-mode) and the budget-calibrated watchdog that combines them, the absorption-ratio early-warning signal, the synthetic cascade simulator, and the validation statistics. Stubbed and on the roadmap, RFC 3161 time-anchoring, OPA/Cedar policy adapters, the wider herding menu (CSAD, transfer entropy, Kuramoto, copula tail dependence, policy similarity), and the realistic order-book validation harness (ABIDES).
+Early, `0.1.1`. Real and tested today, the action contract, the hash-chained audit log with Merkle inclusion and consistency proofs, the deny-by-default policy gate and kill switch, two herding detectors (net-direction and RMT market-mode) and the budget-calibrated watchdog that combines them, the absorption-ratio early-warning signal, the synthetic cascade simulator, and the validation statistics. Stubbed and on the roadmap, RFC 3161 time-anchoring, OPA/Cedar policy adapters, the wider herding menu (CSAD, transfer entropy, Kuramoto, copula tail dependence, policy similarity), and the realistic order-book validation harness (ABIDES).
 
 ## Install
 

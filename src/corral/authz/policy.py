@@ -17,6 +17,9 @@ from typing import Any
 
 @dataclass(frozen=True)
 class TradingPolicy:
+    """The rule set a trade is checked against. None on any field means no limit on that axis,
+    not anything goes, the other rules still apply."""
+
     allowed_instruments: frozenset[str] | None = None  # None = no allow-list restriction
     restricted_instruments: frozenset[str] = field(default_factory=frozenset)
     max_order_quantity: float | None = None
