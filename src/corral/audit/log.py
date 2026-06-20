@@ -115,11 +115,6 @@ class TamperEvidentAuditLog:
         path = _merkle_path(self._leaves(), index)
         return InclusionProof(index, len(self._entries), tuple(h.hex() for h in path))
 
-    def anchor(self) -> Any:
-        """RFC 3161 timestamp on the checkpoint, the external anchor that defeats truncation.
-        It needs a trusted timestamping authority, so it is wired in at deployment, see PLAN.md."""
-        raise NotImplementedError("RFC 3161 timestamp anchoring, Pillar 1 roadmap")
-
     def consistency_proof(self, old: SignedTreeHead) -> "ConsistencyProof":
         """Proof that the log as it stands only appended to the `old` checkpoint, nothing rewritten.
         Verify it with verify_consistency against the old checkpoint and a current one."""
